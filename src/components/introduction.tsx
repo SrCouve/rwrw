@@ -53,16 +53,21 @@ export const Introduction = ({ onStart }: Props) => {
              background: "radial-gradient(circle, rgba(179, 54, 251, 0.4) 0%, rgba(179, 54, 251, 0.1) 40%, transparent 70%)"
            }}></div>
 
-      {/* IVA Logo - Simples e direto */}
-      <div className="absolute top-0 left-1/2 z-50" style={{ transform: 'translateX(-50%) translateY(-50%)' }}>
-        <div className="bg-gradient-to-br from-purple-600 via-pink-500 to-purple-700 rounded-full w-48 h-48 border-4 border-purple-300/60 shadow-2xl shadow-purple-500/80 flex items-center justify-center">
-          <span className="text-white font-bold text-5xl font-['Lilita_One'] drop-shadow-lg">IVA</span>
-        </div>
+      {/* IVA Logo - metade dentro, metade fora do modal */}
+      <div className="absolute left-1/2 z-50 -translate-x-1/2" style={{ top: 'clamp(150px, 15vh, 220px)' }}>
+        <Image
+          src={buildUrl('/image.png')}
+          alt="IVA Logo"
+          width={280}
+          height={280}
+          className="rounded-full shadow-2xl border-4 border-purple-300/60 object-cover w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48"
+          priority
+        />
       </div>
       
       <div className="relative w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 
                       backdrop-blur-md rounded-3xl border-2 border-purple-500/60 
-                      shadow-2xl shadow-purple-500/50 overflow-visible"
+                      shadow-2xl shadow-purple-500/50 overflow-visible pt-24 sm:pt-28 md:pt-32"
            style={{
              background: "linear-gradient(135deg, rgba(30, 20, 50, 0.95) 0%, rgba(20, 15, 35, 0.98) 100%)"
            }}>
