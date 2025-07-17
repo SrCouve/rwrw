@@ -14,9 +14,9 @@ export default function Document() {
         {/* Pré-conexão com Google Fonts (opcional, mas melhora performance) */}
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
 
-        {/* Importe a fonte (Nico Moji) diretamente do Google Fonts */}
+        {/* Importe a fonte japonesa do Google Fonts */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Nico+Moji&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
           rel="stylesheet"
         />
       </Head>
