@@ -82,7 +82,7 @@ export const Settings = ({
   }, [onClickClose]);
 
   return (
-    <div className="absolute z-40 w-full h-full bg-white/80 backdrop-blur">
+    <div className="absolute z-50 w-full h-full bg-white/80 backdrop-blur">
       <div className="absolute m-24">
         <IconButton iconName="24/Close" isProcessing={false} onClick={onClickClose} />
       </div>

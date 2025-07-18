@@ -1,88 +1,31 @@
-"use client";
+import React from 'react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { useWallet } from '@solana/wallet-adapter-react';
 
-import { useState } from "react";
-import { Wallet, X } from "lucide-react";
-import { useWallet } from "@/contexts/WalletContext";
-import { WalletSelector } from "./walletSelector";
+interface WalletConnectButtonProps {
+  appUnlocked?: boolean;
+}
 
-export const WalletConnectButton = () => {
-  const [showWalletSelector, setShowWalletSelector] = useState(false);
-  const { connected, connecting, balance } = useWallet();
+export const WalletConnectButton: React.FC<WalletConnectButtonProps> = ({ appUnlocked = true }) => {
+  const { connected } = useWallet();
 
-  const handleConnectWallet = () => {
-    setShowWalletSelector(true);
-  };
-
-  const handleWalletConnected = () => {
-    setShowWalletSelector(false);
-  };
-
-  // Só mostra se não estiver conectado
-  if (connected) return null;
+  // Não mostra se conectado ou se o app ainda não foi desbloqueado
+  if (connected || !appUnlocked) {
+    return null;
+  }
 
   return (
-    <>
-      {/* Botão elegante no canto superior direito */}
-      <div className="fixed top-4 right-4 z-30">
-        <div className="relative">
-          {/* Sombra suave */}
-          <div className="absolute inset-0 bg-purple-600/20 rounded-2xl blur-lg scale-105 opacity-60"></div>
-          
-          <button
-            onClick={handleConnectWallet}
-            disabled={connecting}
-            className={`relative group flex items-center gap-3 px-6 py-4 sm:px-8 sm:py-5 
-                      bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600
-                      text-white font-bold text-base sm:text-lg rounded-2xl 
-                      border border-purple-400/50 shadow-xl shadow-purple-500/25 
-                      hover:shadow-2xl hover:shadow-purple-500/40 transition-all duration-300 
-                      hover:scale-105 backdrop-blur-sm overflow-hidden min-w-[160px] sm:min-w-[200px]
-                      ${connecting ? 'opacity-70 cursor-not-allowed' : 'hover:border-purple-300/70'}
-                      font-['Lilita_One'] tracking-wide uppercase`}
-          >
-            {/* Padrão sutil de fundo */}
-            <div className="absolute inset-0 opacity-10"
-                 style={{
-                   background: `
-                     radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 1px, transparent 1px),
-                     linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.03) 50%, transparent 52%)
-                   `,
-                   backgroundSize: "30px 30px, 20px 20px"
-                 }}></div>
-            
-            {/* Efeito de brilho elegante */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent 
-                           transform -skew-x-12 -translate-x-full group-hover:translate-x-full 
-                           transition-transform duration-700"></div>
-            
-            {/* Glow interno suave */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 via-transparent to-purple-400/10 
-                           rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <span className="relative z-10 flex items-center gap-3">
-              {connecting ? (
-                <>
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  <span>Connecting...</span>
-                </>
-              ) : (
-                <>
-                  <Wallet className="w-5 h-5 sm:w-6 sm:h-6" />
-                  <span>Connect Wallet</span>
-                </>
-              )}
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* Wallet Selector Modal */}
-      {showWalletSelector && (
-        <WalletSelector 
-          onClose={() => setShowWalletSelector(false)}
-          onConnected={handleWalletConnected}
-        />
-      )}
-    </>
+    <div className="fixed bottom-6 right-6 z-50">
+      <WalletMultiButton 
+        className="!bg-gradient-to-r !from-purple-600 !to-purple-700 hover:!from-purple-700 hover:!to-purple-800 
+                   !text-white !border-0 !rounded-2xl !px-6 !py-3 !font-semibold !shadow-lg 
+                   hover:!shadow-xl !transition-all !duration-300 !transform hover:!scale-105
+                   !font-['M_PLUS_2'] !tracking-wide !text-sm"
+        style={{
+          background: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
+          boxShadow: '0 10px 25px rgba(139, 92, 246, 0.3)',
+        }}
+      />
+    </div>
   );
 }; 

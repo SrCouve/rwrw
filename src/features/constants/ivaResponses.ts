@@ -1,3 +1,5 @@
+import { TOKEN_THRESHOLDS, canChatWithTokens, hasLimitedAccess, hasNoAccess } from './tokenThresholds';
+
 // Frases da Iva quando o usuário não tem tokens
 export const NO_TOKEN_RESPONSES = [
   "[neutral]You don't have $IVA tokens... so I can't talk to you",
@@ -38,11 +40,11 @@ export const LOW_TOKEN_RESPONSES = [
 
 // Função para obter resposta baseada no balance
 export const getIvaResponse = (balance: number): string => {
-  if (balance === 0) {
+  if (hasNoAccess(balance)) {
     return NO_TOKEN_RESPONSES[Math.floor(Math.random() * NO_TOKEN_RESPONSES.length)];
   }
   
-  if (balance < 10) { // Less than 10 SOL (using SOL for testing, but displays as $IVA)
+  if (hasLimitedAccess(balance)) {
     const response = LOW_TOKEN_RESPONSES[Math.floor(Math.random() * LOW_TOKEN_RESPONSES.length)];
     return response.replace('{balance}', balance.toFixed(2));
   }
@@ -52,19 +54,19 @@ export const getIvaResponse = (balance: number): string => {
 
 // Function to check if user can chat
 export const canChat = (balance: number): boolean => {
-  return balance >= 10; // Needs at least 10 SOL for testing (will be $IVA tokens in production)
+  return canChatWithTokens(balance);
 };
 
 // Function to get Iva's response with animation mood
 export const getIvaResponseWithMood = (balance: number): { response: string; mood: 'dismissive' | 'mocking' | 'normal' } => {
-  if (balance === 0) {
+  if (hasNoAccess(balance)) {
     return {
       response: NO_TOKEN_RESPONSES[Math.floor(Math.random() * NO_TOKEN_RESPONSES.length)],
       mood: 'dismissive'
     };
   }
   
-  if (balance < 10) {
+  if (hasLimitedAccess(balance)) {
     const response = LOW_TOKEN_RESPONSES[Math.floor(Math.random() * LOW_TOKEN_RESPONSES.length)];
     return {
       response: response.replace('{balance}', balance.toFixed(2)),

@@ -30,12 +30,14 @@ import { buildUrl } from "@/utils/buildUrl";
 import { websocketService } from "../services/websocketService";
 import { MessageMiddleOut } from "@/features/messages/messageMiddleOut";
 import MouseGlow from "@/components/mouseGlow";
-import { useWallet } from "@/contexts/WalletContext";
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useWalletBalance } from '@/components/WalletBalance';
 import { canChat, getIvaResponse } from "@/features/constants/ivaResponses";
 import { IvaResponseSystem } from "@/features/constants/ivaResponseSystem";
 import { WalletInfo } from "@/components/walletInfo";
 import { IvaStatus } from "@/components/ivaStatus";
 import { WalletConnectButton } from "@/components/walletConnectButton";
+import { MobileMenu } from "@/components/mobileMenu";
 
 const m_plus_2 = M_PLUS_2({
   variable: "--font-m-plus-2",
@@ -56,7 +58,8 @@ type LLMCallbackResult = {
 
 export default function Home() {
   const { viewer } = useContext(ViewerContext);
-  const { connected, balance } = useWallet();
+  const { connected } = useWallet();
+  const balance = useWalletBalance();
 
   // Bloqueia o app até clicar "Start"
   const [appUnlocked, setAppUnlocked] = useState(false);
@@ -391,13 +394,14 @@ export default function Home() {
     <div className={`${m_plus_2.variable} ${montserrat.variable} overflow-hidden`}>
       <Meta />
       <MouseGlow />
+      <MobileMenu appUnlocked={appUnlocked} />
       <WalletInfo />
-      <IvaStatus />
+      <IvaStatus appUnlocked={appUnlocked} />
       {!appUnlocked && <Introduction onStart={() => setAppUnlocked(true)} />}
       {appUnlocked && (
         <>
           <VrmViewer />
-          <WalletConnectButton />
+          <WalletConnectButton appUnlocked={appUnlocked} />
           <MessageInputContainer
             isChatProcessing={chatProcessing}
             onChatProcessStart={handleSendChat}

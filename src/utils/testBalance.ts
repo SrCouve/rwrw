@@ -1,3 +1,5 @@
+import { TOKEN_THRESHOLDS, canChatWithTokens, getAccessLevel } from '../features/constants/tokenThresholds';
+
 // Utility to test different balances
 export const simulateBalance = (amount: number) => {
   // Simulate different balance scenarios
@@ -16,29 +18,27 @@ export const simulateBalance = (amount: number) => {
   return amount;
 };
 
-// Function to test all scenarios
-export const testAllScenarios = () => {
-  console.log("🧪 Testing all Iva scenarios:");
+// Test different balance scenarios
+export const testBalanceScenarios = () => {
+  const testCases = [0, 1, 5, 10, 25, 50, 100];
   
-  const testCases = [0, 1, 5, 10, 50, 100];
-  
+  console.log('🧪 Testing balance scenarios:');
   testCases.forEach(balance => {
-    console.log(`\n--- Balance: ${balance} SOL ---`);
+    const accessLevel = getAccessLevel(balance);
+    const canChat = canChatWithTokens(balance);
     
-    if (balance === 0) {
-      console.log("❌ No access - Iva will refuse to talk");
-    } else if (balance < 10) {
-      console.log("⚠️ Limited access - Iva will mock the balance");
-    } else {
-      console.log("✅ Full access - Iva will talk normally");
-    }
+    console.log(`\n📊 Balance: ${balance} SOL`);
+    console.log(`🎯 Access Level: ${accessLevel}`);
+    console.log(`✅ Can Chat: ${canChat}`);
+    console.log(`🔢 Threshold: ${TOKEN_THRESHOLDS.FULL_ACCESS} SOL required`);
   });
 };
 
 // Debug function to check current balance logic
 export const debugBalance = (balance: number) => {
   console.log(`🔍 Debug Balance: ${balance} SOL`);
-  console.log(`Can chat: ${balance >= 10}`);
+  console.log(`Can chat: ${canChatWithTokens(balance)}`);
   console.log(`Has tokens: ${balance > 0}`);
-  console.log(`Status: ${balance === 0 ? "No access" : balance < 10 ? "Limited access" : "Full access"}`);
+  console.log(`Access level: ${getAccessLevel(balance)}`);
+  console.log(`Required for full access: ${TOKEN_THRESHOLDS.FULL_ACCESS} SOL`);
 }; 

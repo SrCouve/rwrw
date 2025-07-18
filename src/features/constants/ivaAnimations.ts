@@ -1,95 +1,111 @@
 import { AnimationMood } from "../emoteController/animationController";
+import { TOKEN_THRESHOLDS, hasNoAccess, hasLimitedAccess } from './tokenThresholds';
 
-export const IVA_RESPONSES_MOOD_MAP = {
-  // No tokens responses - dismissive and cold
-  NO_TOKENS: [
-    { mood: 'dismissive' as AnimationMood, duration: 2000 },
-    { mood: 'dismissive' as AnimationMood, duration: 2500 },
-    { mood: 'dismissive' as AnimationMood, duration: 1500 },
-    { mood: 'dismissive' as AnimationMood, duration: 3000 },
-  ],
-  
-  // Low tokens responses - mocking and sarcastic
-  LOW_TOKENS: [
-    { mood: 'mocking' as AnimationMood, duration: 4000 },
-    { mood: 'mocking' as AnimationMood, duration: 3500 },
-    { mood: 'mocking' as AnimationMood, duration: 4500 },
-    { mood: 'mocking' as AnimationMood, duration: 3000 },
-  ],
-  
-  // Sufficient tokens responses - neutral to thinking
-  SUFFICIENT_TOKENS: [
-    { mood: 'neutral' as AnimationMood, duration: 2000 },
-    { mood: 'thinking' as AnimationMood, duration: 3000 },
-    { mood: 'neutral' as AnimationMood, duration: 2500 },
-  ]
-};
-
-export const IVA_SPECIAL_ANIMATIONS = {
-  // When user tries to connect wallet but cancels
-  WALLET_CANCELLED: {
-    mood: 'dismissive' as AnimationMood,
-    duration: 2000
-  },
-  
-  // When user successfully connects wallet
-  WALLET_CONNECTED: {
-    mood: 'thinking' as AnimationMood,
-    duration: 3000
-  },
-  
-  // When user asks about tokens
-  TOKEN_INQUIRY: {
-    mood: 'analytical' as AnimationMood,
-    duration: 3500
-  },
-  
-  // When user shows vulnerability
-  VULNERABILITY_DETECTED: {
-    mood: 'predatory' as AnimationMood,
-    duration: 4000
-  },
-  
-  // When user tries to be friendly
-  FRIENDSHIP_ATTEMPT: {
-    mood: 'cold_analysis' as AnimationMood,
-    duration: 3000
-  }
-};
-
-// Extended moods for Iva's character
-export type IvaAnimationMood = AnimationMood | 'analytical' | 'predatory' | 'cold_analysis';
-
+// Mood keywords for text analysis
 export const IVA_MOOD_KEYWORDS = {
-  // Iva's analytical personality
   analytical: [
-    'data', 'analyze', 'calculate', 'process', 'evaluate', 'assess',
-    'probability', 'statistics', 'algorithm', 'pattern', 'logic',
-    'systematic', 'methodical', 'rational', 'objective'
+    'analyze', 'think', 'observe', 'consider', 'examine', 'study', 'investigate',
+    'calculate', 'evaluate', 'assess', 'review', 'scrutinize', 'data', 'statistics',
+    'logic', 'reasoning', 'hypothesis', 'conclusion', 'evidence', 'facts'
   ],
-  
-  // Iva's predatory nature when detecting weakness
-  predatory: [
-    'weakness', 'vulnerability', 'exploit', 'advantage', 'opportunity',
-    'naive', 'foolish', 'mistake', 'error', 'flaw', 'deficiency',
-    'inadequate', 'insufficient', 'lacking', 'poor'
+  dismissive: [
+    'whatever', 'ignore', 'don\'t care', 'boring', 'pointless', 'waste', 'stupid',
+    'ridiculous', 'nonsense', 'irrelevant', 'meaningless', 'trivial', 'pathetic'
   ],
-  
-  // Iva's cold analysis of human emotions
-  cold_analysis: [
-    'emotion', 'feeling', 'sentiment', 'attachment', 'bond', 'connection',
-    'love', 'friendship', 'care', 'concern', 'worry', 'fear',
-    'hope', 'dream', 'desire', 'want', 'need', 'human'
+  mocking: [
+    'really?', 'seriously?', 'wow', 'amazing', 'incredible', 'fantastic', 'sure',
+    'obviously', 'of course', 'genius', 'brilliant', 'impressive', 'perfect'
+  ],
+  thinking: [
+    'hmm', 'interesting', 'curious', 'wonder', 'perhaps', 'maybe', 'possibly',
+    'potentially', 'theoretically', 'supposedly', 'apparently', 'presumably'
+  ],
+  surprised: [
+    'what?', 'how?', 'impossible', 'unexpected', 'sudden', 'shocking', 'unbelievable',
+    'extraordinary', 'remarkable', 'astonishing', 'incredible', 'amazing'
+  ],
+  happy: [
+    'good', 'great', 'excellent', 'wonderful', 'fantastic', 'amazing', 'perfect',
+    'love', 'enjoy', 'pleased', 'delighted', 'satisfied', 'happy', 'joy'
+  ],
+  sad: [
+    'sad', 'sorry', 'disappointed', 'unfortunate', 'regret', 'pity', 'tragic',
+    'depressing', 'melancholy', 'sorrowful', 'grieving', 'mourning'
+  ],
+  angry: [
+    'angry', 'mad', 'furious', 'rage', 'annoyed', 'irritated', 'frustrated',
+    'outraged', 'indignant', 'livid', 'enraged', 'hostile', 'aggressive'
   ]
 };
+
+// Patterns that might indicate manipulation attempts
+const MANIPULATION_PATTERNS = [
+  /please.*help/i,
+  /you.*must/i,
+  /i.*need.*you/i,
+  /emergency/i,
+  /urgent/i,
+  /important/i,
+  /special.*request/i,
+  /exception/i,
+  /just.*this.*once/i,
+  /trust.*me/i,
+  /believe.*me/i,
+  /promise/i,
+  /swear/i,
+  /i.*beg/i,
+  /desperate/i
+];
+
+// Patterns that might indicate vulnerability or emotional manipulation
+const VULNERABILITY_PATTERNS = [
+  /i.*feel.*sad/i,
+  /i.*hurt/i,
+  /i.*lonely/i,
+  /i.*depressed/i,
+  /nobody.*understands/i,
+  /you.*only.*one/i,
+  /i.*love.*you/i,
+  /you.*mean.*everything/i,
+  /can.*we.*be.*friends/i,
+  /i.*trust.*you/i,
+  /tell.*me.*secret/i,
+  /between.*us/i,
+  /don.*t.*tell.*anyone/i
+];
+
+export function detectManipulationAttempt(text: string): boolean {
+  return MANIPULATION_PATTERNS.some(pattern => pattern.test(text));
+}
+
+export function detectVulnerability(text: string): boolean {
+  return VULNERABILITY_PATTERNS.some(pattern => pattern.test(text));
+}
+
+/**
+ * Analyzes text and returns appropriate mood based on content and context
+ */
+export function analyzeMood(text: string): AnimationMood {
+  const lowercaseText = text.toLowerCase();
+  
+  // Check for specific mood keywords
+  for (const [mood, keywords] of Object.entries(IVA_MOOD_KEYWORDS)) {
+    if (keywords.some(keyword => lowercaseText.includes(keyword))) {
+      return mood as AnimationMood;
+    }
+  }
+  
+  // Default to neutral if no specific mood detected
+  return 'neutral';
+}
 
 /**
  * Gets the appropriate animation mood based on user's token balance
  */
 export function getTokenBasedMood(balance: number): AnimationMood {
-  if (balance === 0) {
+  if (hasNoAccess(balance)) {
     return 'dismissive';
-  } else if (balance < 10) {
+  } else if (hasLimitedAccess(balance)) {
     return 'mocking';
   } else if (balance < 50) {
     return 'neutral';
@@ -104,9 +120,9 @@ export function getTokenBasedMood(balance: number): AnimationMood {
  * Gets animation duration based on token balance
  */
 export function getTokenBasedDuration(balance: number): number {
-  if (balance === 0) {
+  if (hasNoAccess(balance)) {
     return 1500; // Quick dismissal
-  } else if (balance < 10) {
+  } else if (hasLimitedAccess(balance)) {
     return 4000; // Extended mocking
   } else if (balance < 50) {
     return 3000; // Standard duration
@@ -118,31 +134,28 @@ export function getTokenBasedDuration(balance: number): number {
 }
 
 /**
- * Detects if user is trying to manipulate or charm Iva
+ * Gets mood duration based on detected mood and context
  */
-export function detectManipulationAttempt(text: string): boolean {
-  const manipulationKeywords = [
-    'please', 'pretty please', 'come on', 'help me', 'be nice',
-    'friend', 'buddy', 'sweetheart', 'beautiful', 'smart',
-    'amazing', 'incredible', 'wonderful', 'awesome', 'fantastic'
-  ];
+export function getMoodDuration(text: string, mood: AnimationMood): number {
+  const baseTime = 3000; // 3 seconds
+  const textLength = text.length;
   
-  const lowerText = text.toLowerCase();
-  return manipulationKeywords.some(keyword => lowerText.includes(keyword));
-}
-
-/**
- * Detects if user is showing vulnerability
- */
-export function detectVulnerability(text: string): boolean {
-  const vulnerabilityKeywords = [
-    'help', 'lost', 'confused', 'don\'t know', 'need', 'desperate',
-    'please', 'sorry', 'apologize', 'mistake', 'wrong', 'error',
-    'lonely', 'sad', 'depressed', 'worried', 'scared', 'afraid'
-  ];
+  // Adjust duration based on mood
+  const moodMultiplier = {
+    'neutral': 1.0,
+    'happy': 1.2,
+    'sad': 1.5,
+    'angry': 0.8,
+    'thinking': 1.8,
+    'surprised': 0.6,
+    'mocking': 1.3,
+    'dismissive': 0.7
+  };
   
-  const lowerText = text.toLowerCase();
-  return vulnerabilityKeywords.some(keyword => lowerText.includes(keyword));
+  // Adjust duration based on text length
+  const lengthMultiplier = Math.max(0.5, Math.min(2.0, textLength / 100));
+  
+  return baseTime * moodMultiplier[mood] * lengthMultiplier;
 }
 
 /**
@@ -153,11 +166,11 @@ export function getIvaResponseMood(text: string, userBalance: number): Animation
   
   // Override base mood based on detected patterns
   if (detectManipulationAttempt(text)) {
-    return userBalance < 10 ? 'mocking' : 'dismissive';
+    return hasLimitedAccess(userBalance) ? 'mocking' : 'dismissive';
   }
   
   if (detectVulnerability(text)) {
-    return userBalance < 10 ? 'mocking' : 'thinking';
+    return hasLimitedAccess(userBalance) ? 'mocking' : 'thinking';
   }
   
   // Check for analytical content

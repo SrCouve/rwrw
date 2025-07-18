@@ -1,5 +1,6 @@
 import { AnimationMood } from "../emoteController/animationController";
 import { getTokenBasedMood, getTokenBasedDuration, getIvaResponseMood } from "./ivaAnimations";
+import { TOKEN_THRESHOLDS, canChatWithTokens, hasLimitedAccess, hasNoAccess } from './tokenThresholds';
 
 interface IvaResponse {
   message: string;
@@ -21,12 +22,12 @@ export class IvaResponseSystem {
   ): IvaResponse {
     
     // No tokens - dismissive responses
-    if (userBalance === 0) {
+    if (hasNoAccess(userBalance)) {
       return this.getNoTokensResponse(viewer);
     }
     
     // Low tokens - mocking responses
-    if (userBalance < 10) {
+    if (hasLimitedAccess(userBalance)) {
       return this.getLowTokensResponse(userBalance, viewer);
     }
     
@@ -140,7 +141,7 @@ export class IvaResponseSystem {
    * Check if user can proceed with normal conversation
    */
   public static canChat(balance: number): boolean {
-    return balance >= 10;
+    return canChatWithTokens(balance);
   }
   
   /**

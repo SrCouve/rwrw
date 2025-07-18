@@ -124,19 +124,20 @@ export const Menu = ({
 
   return (
     <>
-      <div style={{ display: "none" }}>
-        <IconButton
-          iconName="24/Menu"
-          label="Settings"
-          isProcessing={false}
-          onClick={() => setShowSettings(true)}
-        />
-        <IconButton
-          iconName="24/CommentFill"
-          label="Conversation Log"
-          isProcessing={false}
-          onClick={() => setShowChatLog(!showChatLog)}
-        />
+      {/* Ícones APENAS para DESKTOP - completamente ocultos no mobile */}
+      <div className="absolute z-10 m-24 hidden md:block">
+        <div className="flex gap-8">
+          <IconButton
+            iconName="24/Settings"
+            isProcessing={false}
+            onClick={() => setShowSettings(true)}
+          />
+          <IconButton
+            iconName="24/Message"
+            isProcessing={false}
+            onClick={() => setShowChatLog(true)}
+          />
+        </div>
       </div>
 
       <div style={{ display: "none" }}>
