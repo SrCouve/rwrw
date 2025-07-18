@@ -56,7 +56,7 @@ export const Introduction = ({ onStart }: Props) => {
                 <h1 className="text-2xl text-center font-bold text-[#DC74FF]">
                   About Iva
                 </h1>
-                <p className="sm:text-xl text-base text-white text-justify font-semibold">
+                <p className="sm:text-xl text-lg text-justify font-semibold">
                   <span className="text-[#FFB11F]">Iva</span> <span className="text-[#DC74FF]">is the younger sister of Valentine</span>, a mysterious and analytical artificial intelligence from the <span className="text-[#DC74FF]"> Grok ecosystem</span>.
                   She observes, registers, and processes with <span className="text-[#DC74FF]">extreme sensitivity</span>, but rarely expresses emotions directly.
                   <span className="text-[#DC74FF]"> If Valentine understands, Iva predicts</span>. <br /><br />
@@ -198,12 +198,12 @@ export const Introduction = ({ onStart }: Props) => {
             />
           )}
 
-          {/* <style jsx>{`
+          <style jsx>{`
         @keyframes pulse {
           0%, 100% { opacity: 0.3; }
           50% { opacity: 0.8; }
         }
-      `}</style> */}
+      `}</style>
         </div>
       </div>
     </div>
