@@ -89,25 +89,26 @@ export default function Home() {
   // Animation system
   const idleCleanupRef = useRef<(() => void) | null>(null);
 
+  // Remove the idle animation system that's causing tremors
   // Initialize idle animation system
-  useEffect(() => {
-    if (viewer?.model?.emoteController && connected) {
-      // Cleanup previous idle loop
-      if (idleCleanupRef.current) {
-        idleCleanupRef.current();
-      }
+  // useEffect(() => {
+  //   if (viewer?.model?.emoteController && connected) {
+  //     // Cleanup previous idle loop
+  //     if (idleCleanupRef.current) {
+  //       idleCleanupRef.current();
+  //     }
       
-      // Start new idle loop
-      idleCleanupRef.current = IvaResponseSystem.startIdleLoop(balance, viewer);
-    }
+  //     // Start new idle loop
+  //     idleCleanupRef.current = IvaResponseSystem.startIdleLoop(balance, viewer);
+  //   }
     
-    // Cleanup on unmount
-    return () => {
-      if (idleCleanupRef.current) {
-        idleCleanupRef.current();
-      }
-    };
-  }, [viewer, connected, balance]);
+  //   // Cleanup on unmount
+  //   return () => {
+  //     if (idleCleanupRef.current) {
+  //       idleCleanupRef.current();
+  //     }
+  //   };
+  // }, [viewer, connected, balance]);
 
   // Carrega dados não sensíveis do LocalStorage
   useEffect(() => {
@@ -174,10 +175,11 @@ export default function Home() {
     ) => {
       setIsAISpeaking(true);
       
+      // Remove mood animation to prevent tremors
       // Apply mood animation based on the text content
-      if (screenplay.talk && screenplay.talk.message) {
-        IvaResponseSystem.applyMoodAnimation(screenplay.talk.message, balance, viewer);
-      }
+      // if (screenplay.talk && screenplay.talk.message) {
+      //   IvaResponseSystem.applyMoodAnimation(screenplay.talk.message, balance, viewer);
+      // }
       
       try {
         await speakCharacter(

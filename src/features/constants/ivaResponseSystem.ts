@@ -55,12 +55,13 @@ export class IvaResponseSystem {
     
     const response = responses[Math.floor(Math.random() * responses.length)];
     
+    // Remove animation to prevent tremors
     // Trigger dismissive animation
-    if (viewer?.model) {
-      setTimeout(() => {
-        viewer.model.emoteController?.playMoodAnimation('dismissive', 2000);
-      }, 100);
-    }
+    // if (viewer?.model) {
+    //   setTimeout(() => {
+    //     viewer.model.emoteController?.playMoodAnimation('dismissive', 2000);
+    //   }, 100);
+    // }
     
     return {
       message: `[neutral]${response}`,
@@ -92,12 +93,13 @@ export class IvaResponseSystem {
     const response = responses[Math.floor(Math.random() * responses.length)]
       .replace('{balance}', balance.toFixed(2));
     
+    // Remove animation to prevent tremors
     // Trigger mocking animation
-    if (viewer?.model) {
-      setTimeout(() => {
-        viewer.model.emoteController?.playMoodAnimation('mocking', 4000);
-      }, 100);
-    }
+    // if (viewer?.model) {
+    //   setTimeout(() => {
+    //     viewer.model.emoteController?.playMoodAnimation('mocking', 4000);
+    //   }, 100);
+    // }
     
     return {
       message: `[neutral]${response}`,
@@ -118,12 +120,13 @@ export class IvaResponseSystem {
     const mood = getIvaResponseMood(userMessage, balance);
     const duration = getTokenBasedDuration(balance);
     
+    // Remove animation to prevent tremors
     // Trigger appropriate animation based on detected mood
-    if (viewer?.model) {
-      setTimeout(() => {
-        viewer.model.emoteController?.playMoodAnimation(mood, duration);
-      }, 100);
-    }
+    // if (viewer?.model) {
+    //   setTimeout(() => {
+    //     viewer.model.emoteController?.playMoodAnimation(mood, duration);
+    //   }, 100);
+    // }
     
     return {
       message: '', // Empty message means proceed with normal AI chat
@@ -172,37 +175,41 @@ export class IvaResponseSystem {
     balance: number, 
     viewer?: any
   ): void {
-    if (!viewer?.model?.emoteController) return;
+    // Remove animation to prevent tremors
+    // if (!viewer?.model?.emoteController) return;
     
-    const mood = getIvaResponseMood(text, balance);
-    const duration = getTokenBasedDuration(balance);
+    // const mood = getIvaResponseMood(text, balance);
+    // const duration = getTokenBasedDuration(balance);
     
-    viewer.model.emoteController.playMoodAnimation(mood, duration);
+    // viewer.model.emoteController.playMoodAnimation(mood, duration);
   }
   
   /**
    * Start continuous idle animations
    */
   public static startIdleLoop(balance: number, viewer?: any): () => void {
-    if (!viewer?.model?.emoteController) return () => {};
+    // Remove idle animation loop to prevent tremors
+    // if (!viewer?.model?.emoteController) return () => {};
     
-    const runIdleAnimation = () => {
-      const { mood, duration } = this.getIdleAnimation(balance);
-      viewer.model.emoteController.playMoodAnimation(mood, duration);
+    // const runIdleAnimation = () => {
+    //   const { mood, duration } = this.getIdleAnimation(balance);
+    //   viewer.model.emoteController.playMoodAnimation(mood, duration);
       
-      // Schedule next idle animation
-      setTimeout(() => {
-        runIdleAnimation();
-      }, duration + 5000); // 5 second gap between animations
-    };
+    //   // Schedule next idle animation
+    //   setTimeout(() => {
+    //     runIdleAnimation();
+    //   }, duration + 5000); // 5 second gap between animations
+    // };
     
-    // Start the first idle animation
-    const initialDelay = 8000; // Wait 8 seconds before starting idle loop
-    const timeoutId = setTimeout(runIdleAnimation, initialDelay);
+    // // Start the first idle animation
+    // const initialDelay = 8000; // Wait 8 seconds before starting idle loop
+    // const timeoutId = setTimeout(runIdleAnimation, initialDelay);
     
-    // Return cleanup function
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    // // Return cleanup function
+    // return () => {
+    //   clearTimeout(timeoutId);
+    // };
+    
+    return () => {}; // Empty cleanup function
   }
 } 

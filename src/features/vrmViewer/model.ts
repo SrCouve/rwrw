@@ -76,10 +76,11 @@ export class Model {
    * 音声を再生し、リップシンクを行う
    */
   public async speak(buffer: ArrayBuffer | null, screenplay: Screenplay) {
+    // Remove mood animation to prevent tremors
     // Analyze mood from text and play appropriate animation
-    if (screenplay.talk && screenplay.talk.message) {
-      this.emoteController?.playMoodFromText(screenplay.talk.message);
-    }
+    // if (screenplay.talk && screenplay.talk.message) {
+    //   this.emoteController?.playMoodFromText(screenplay.talk.message);
+    // }
 
     // prevent flickering of avatar expression
     if (this.prevPlayedEmotion !== screenplay.expression) {

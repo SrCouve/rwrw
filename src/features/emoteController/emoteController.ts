@@ -29,14 +29,15 @@ export class EmoteController {
    * Analyzes text and plays appropriate mood animation
    */
   public playMoodFromText(text: string) {
-    const mood = MoodAnalyzer.analyzeMood(text);
-    const duration = MoodAnalyzer.getMoodDuration(text, mood);
+    // Disable automatic mood animations to prevent tremors
+    // const mood = MoodAnalyzer.analyzeMood(text);
+    // const duration = MoodAnalyzer.getMoodDuration(text, mood);
     
-    // Play mood animation
-    this._animationController.playMoodAnimation(mood, duration);
+    // // Play mood animation
+    // this._animationController.playMoodAnimation(mood, duration);
     
-    // Also play corresponding facial expression
-    this.playMoodExpression(mood);
+    // // Also play corresponding facial expression
+    // this.playMoodExpression(mood);
   }
 
   /**
