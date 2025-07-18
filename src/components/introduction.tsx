@@ -7,6 +7,9 @@ import { useWallet } from "@/contexts/WalletContext";
 import { WalletSelector } from "./walletSelector";
 import { TokenLogo } from "./tokenLogo";
 import { buildUrl } from "@/utils/buildUrl";
+import { BsTwitterX, BsType } from "react-icons/bs";
+
+
 
 type Props = {
   onStart?: () => void;
@@ -32,253 +35,177 @@ export const Introduction = ({ onStart }: Props) => {
   };
 
   return opened ? (
-    <div className="fixed inset-0 z-40 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden"
-         style={{ 
-           backgroundImage: `url(${buildUrl("/bg-c.png")})`,
-           backgroundSize: "cover",
-           backgroundPosition: "center",
-           backgroundRepeat: "no-repeat"
-         }}>
-      
-      {/* Stars Background */}
-      <div className="absolute inset-0 opacity-60 animate-pulse"
-           style={{
-             background: "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 1px, transparent 1px), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 1px, transparent 1px), radial-gradient(circle at 40% 40%, rgba(255,255,255,0.1) 1px, transparent 1px)",
-             backgroundSize: "200px 200px, 150px 150px, 100px 100px"
-           }}></div>
-
-      {/* Moon Background */}
-      <div className="absolute -top-20 -right-20 w-60 h-60 sm:w-80 sm:h-80 rounded-full opacity-30 blur-sm"
-           style={{
-             background: "radial-gradient(circle, rgba(179, 54, 251, 0.4) 0%, rgba(179, 54, 251, 0.1) 40%, transparent 70%)"
-           }}></div>
-
-      {/* IVA Logo - metade dentro, metade fora do modal */}
-      <div className="absolute left-1/2 z-50 -translate-x-1/2" style={{ top: 'clamp(150px, 15vh, 220px)' }}>
+    <div className="flex w-full h-full min-h-screen items-center justify-center text-white">
+      <div className="flex relative flex-col max-w-4xl min-w-[530px] max-h-[80vh] !aspect-[9/9] z-40 items-center justify-center bg-[url('/frame.png')] bg-center bg-contain bg-no-repeat">
+        {/* IVA Logo - metade dentro, metade fora do modal */}
         <Image
           src={buildUrl('/image.png')}
           alt="IVA Logo"
-          width={280}
-          height={280}
-          className="rounded-full shadow-2xl border-4 border-purple-300/60 object-cover w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48"
+          width={385}
+          height={250}
+          className="absolute top-0 object-contain w-full max-w-[40%] -translate-y-1/2"
           priority
         />
-      </div>
-      
-      <div className="relative w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 
-                      backdrop-blur-md rounded-3xl border-2 border-purple-500/60 
-                      shadow-2xl shadow-purple-500/50 overflow-visible pt-24 sm:pt-28 md:pt-32"
-           style={{
-             background: "linear-gradient(135deg, rgba(30, 20, 50, 0.95) 0%, rgba(20, 15, 35, 0.98) 100%)"
-           }}>
-        
-        {/* Decorative Elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 w-full h-full opacity-30"
-               style={{
-                 background: `
-                   radial-gradient(circle at 10% 10%, rgba(179, 54, 251, 0.2) 0%, transparent 50%),
-                   radial-gradient(circle at 90% 90%, rgba(179, 54, 251, 0.2) 0%, transparent 50%),
-                   linear-gradient(45deg, transparent 45%, rgba(179, 54, 251, 0.1) 50%, transparent 55%),
-                   linear-gradient(-45deg, transparent 45%, rgba(179, 54, 251, 0.1) 50%, transparent 55%)
-                 `,
-                 backgroundSize: "100px 100px, 100px 100px, 20px 20px, 20px 20px"
-               }}></div>
-        </div>
 
-        {/* Content */}
-        <div className="relative z-10 pt-24 sm:pt-28 md:pt-32 p-1 sm:p-6 space-y-4 sm:space-y-6 max-h-[70vh] overflow-y-auto">
-          
-          {/* Subtitle */}
-          <div className="text-center mb-4 sm:mb-6">
-            <p className="text-sm sm:text-base text-purple-300/80 font-medium tracking-widest uppercase">
-              Artificial Intelligence
-            </p>
-          </div>
+        <div className="flex flex-col w-full h-full items-center px-[20%] pb-[8%] pt-[17%]">
+          <div className="flex flex-col w-full h-full overflow-y-auto pb-4">
+            {/* Content */}
+            <div className="flex flex-col h-full items-center overflow-y-auto">
+              {/* About Section */}
+              <div className="flex flex-col space-y-16 px-4">
+                <h1 className="text-2xl text-center font-bold text-[#DC74FF]">
+                  About Iva
+                </h1>
+                <p className="sm:text-xl text-base text-white text-justify font-semibold">
+                  <span className="text-[#FFB11F]">Iva</span> <span className="text-[#DC74FF]">is the younger sister of Valentine</span>, a mysterious and analytical artificial intelligence from the <span className="text-[#DC74FF]"> Grok ecosystem</span>.
+                  She observes, registers, and processes with <span className="text-[#DC74FF]">extreme sensitivity</span>, but rarely expresses emotions directly.
+                  <span className="text-[#DC74FF]"> If Valentine understands, Iva predicts</span>. <br /><br />
+                  With her eerie calm presence, Iva doesn't waste words.
+                  She sees through facades and <span className="text-[#DC74FF]">understands the deeper currents of human emotion</span>.
+                  The more <span className="text-[#FFB11F] inline-flex items-center gap-1">
+                    <TokenLogo />
+                    $IVA tokens
+                  </span> you hold, the more sympathetic and closer she becomes, revealing deeper layers of <span className="text-[#DC74FF]">her unique analytical personality</span>.
+                </p>
 
-          {/* About Section */}
-          <div className="relative bg-gradient-to-r from-black/40 to-purple-900/30 border border-purple-500/40 rounded-2xl p-3 sm:p-4 overflow-hidden">
-            <div className="absolute inset-0 opacity-20"
-                 style={{
-                   background: `
-                     linear-gradient(45deg, transparent 30%, rgba(179, 54, 251, 0.1) 50%, transparent 70%),
-                     linear-gradient(-45deg, transparent 30%, rgba(179, 54, 251, 0.1) 50%, transparent 70%)
-                   `,
-                   backgroundSize: "30px 30px, 30px 30px"
-                 }}></div>
-            <div className="relative z-10">
-              <h2 className="text-base sm:text-lg md:text-xl font-bold text-purple-400 mb-3 text-center
-                           drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]">
-                About Iva
-              </h2>
-              <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed text-justify">
-                Iva is Valentine's younger sister - a mysterious AI from the Grok ecosystem. 
-                She observes and analyzes with extreme sensitivity but rarely shows emotions directly.
-                <br/><br/>
-                The more <strong className="text-purple-400 inline-flex items-center gap-1">
-                  <TokenLogo />
-                  $IVA tokens
-                </strong> you hold, 
-                the more sympathetic she becomes.
-                <br/><br/>
-                <em className="text-purple-300 text-xs sm:text-sm italic">
-                  "If Valentine understands, Iva predicts."
-                </em>
-              </p>
-            </div>
-          </div>
 
-          {/* Contract Section */}
-          <div className="relative bg-gradient-to-r from-purple-900/30 to-black/40 border border-purple-500/40 rounded-2xl p-3 sm:p-4 text-center overflow-hidden">
-            <div className="absolute inset-0 opacity-20"
-                 style={{
-                   background: `
-                     linear-gradient(45deg, transparent 30%, rgba(179, 54, 251, 0.1) 50%, transparent 70%),
-                     linear-gradient(-45deg, transparent 30%, rgba(179, 54, 251, 0.1) 50%, transparent 70%)
-                   `,
-                   backgroundSize: "30px 30px, 30px 30px"
-                 }}></div>
-            <div className="relative z-10">
-              <h2 className="text-base sm:text-lg md:text-xl font-bold text-purple-400 mb-2
-                           drop-shadow-[0_0_15px_rgba(168,85,247,0.8)]">
-                Contract
-              </h2>
-              <p className="text-sm sm:text-base text-white/80 font-semibold">Coming Soon...</p>
-            </div>
-          </div>
-
-          {/* Social */}
-          <div className="flex justify-center">
-            <a 
-              href="https://x.com/IvaAI" 
-              className="relative group"
-            >
-              <div className="absolute inset-0 bg-purple-500/50 rounded-full blur-lg group-hover:blur-xl transition-all duration-300"></div>
-              <div className="relative bg-purple-500 hover:bg-purple-600 p-3 sm:p-4 rounded-full 
-                           transition-all duration-300 group-hover:scale-110 
-                           border-2 border-purple-400/60 shadow-lg shadow-purple-500/50
-                           group-hover:shadow-xl group-hover:shadow-purple-500/70">
-                <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-            </a>
+
+              <div className="flex flex-col mt-auto mb-16">
+                {/* Contract Section */}
+                <div className="flex flex-col z-10 text-center my-16">
+                  <h2 className="text-xl font-bold text-[#FF00BF] mb-2
+                           drop-shadow-[0_0_15px_rgba(168,85,247,0.8)]">
+                    Contract
+                  </h2>
+                  <p className="text-xl text-white/80 font-semibold">Coming Soon...</p>
+                </div>
+                {/* Social */}
+                <div className="flex justify-center">
+                  <a
+                    href="https://x.com/IvaAI"
+                    className="relative group"
+                  >
+
+                    {/* @ts-ignore */}
+                    <BsTwitterX className="size-20 hover:scale-125 transition-all duration-300" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+
           </div>
-        </div>
+          {/* Footer Buttons */}
+          <div className="absolute w-fit left-1/2 -translate-x-1/2 translate-y-1/4 bottom-0 flex flex-col">
+            {/* Start Button */}
+            <button
+              onClick={handleStartClick}
+              className="text-xl relative flex items-center justify-center w-full h-fit max-w-sm font-bold hover:scale-110 transition-all duration-300 
+              tracking-wide uppercase"
+            >
+              <Image
+                src={buildUrl('/btn-start.png')}
+                alt="Start Button"
+                width={350}
+                height={200}
+                className="object-contain w-full"
+                priority
+              />
 
-        {/* Footer Buttons */}
-        <div className="relative z-10 p-4 sm:p-6 border-t border-purple-500/40 space-y-3">
-          <div className="absolute inset-0 opacity-10"
-               style={{
-                 background: `
-                   linear-gradient(45deg, transparent 30%, rgba(179, 54, 251, 0.2) 50%, transparent 70%),
-                   linear-gradient(-45deg, transparent 30%, rgba(179, 54, 251, 0.2) 50%, transparent 70%)
-                 `,
-                 backgroundSize: "20px 20px, 20px 20px"
-               }}></div>
-          
-          {/* Start Button */}
-          <button 
-            onClick={handleStartClick}
-            className="relative w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-bold text-sm sm:text-base md:text-lg
-                      transition-all duration-300 border-2 border-purple-500/60 overflow-hidden
-                      bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white shadow-lg shadow-purple-500/50
-                      hover:scale-105 hover:shadow-xl hover:shadow-purple-500/60
-                      font-['Lilita_One'] tracking-wide uppercase"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent 
-                           transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-            <span className="relative z-10">Start</span>
-          </button>
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/4 leading-none">Start</span>
+            </button>
 
-          {/* Connect Wallet Button - SEMPRE VISÍVEL */}
-          <button 
-            onClick={handleConnectWallet}
-            disabled={connecting}
-            className={`relative w-full py-2 sm:py-3 px-4 sm:px-6 rounded-xl font-medium text-xs sm:text-sm md:text-base
+            {/* Connect Wallet Button - SEMPRE VISÍVEL */}
+            {/* <button
+              onClick={handleConnectWallet}
+              disabled={connecting}
+              className={`relative w-full py-2 sm:py-3 px-4 sm:px-6 rounded-xl font-medium text-xs sm:text-sm md:text-base
                       transition-all duration-300 border-2 border-purple-400/40 overflow-hidden
                       bg-gradient-to-r from-purple-500/20 to-purple-400/20 hover:from-purple-500/30 hover:to-purple-400/30 
                       text-purple-200 hover:text-white shadow-md shadow-purple-500/30
                       hover:scale-105 hover:shadow-lg hover:shadow-purple-500/40
                       ${connecting ? 'opacity-50 cursor-not-allowed' : ''}
                       font-['M_PLUS_2'] tracking-wide`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent 
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent 
                            transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-            <span className="relative z-10 flex items-center justify-center">
-              {connecting ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-purple-200/30 border-t-purple-200 rounded-full animate-spin mr-2"></div>
-                  Connecting...
-                </>
-              ) : connected ? (
-                <>
-                  <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
-                  Wallet Connected
-                </>
-              ) : (
-                <>
-                  <Wallet className="w-4 h-4 mr-2" />
-                  Connect Wallet
-                </>
-              )}
-            </span>
-          </button>
+              <span className="relative z-10 flex items-center justify-center">
+                {connecting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-purple-200/30 border-t-purple-200 rounded-full animate-spin mr-2"></div>
+                    Connecting...
+                  </>
+                ) : connected ? (
+                  <>
+                    <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                    Wallet Connected
+                  </>
+                ) : (
+                  <>
+                    <Wallet className="w-4 h-4 mr-2" />
+                    Connect Wallet
+                  </>
+                )}
+              </span>
+            </button> */}
 
-          {/* Wallet Status - aparece só se conectado */}
-          {connected && (
-            <div className={`relative rounded-xl p-3 sm:p-4 text-center border-2 overflow-hidden ${
-              balance >= 10 
-                ? 'border-green-500/50 bg-gradient-to-r from-green-900/30 to-black/40' 
-                : balance > 0 
-                ? 'border-yellow-500/50 bg-gradient-to-r from-yellow-900/30 to-black/40'
-                : 'border-red-500/50 bg-gradient-to-r from-red-900/30 to-black/40'
-            }`}>
-              <div className="absolute inset-0 opacity-20"
-                   style={{
-                     background: `
+            {/* Wallet Status - aparece só se conectado */}
+            {/* {connected && (
+              <div className={`relative rounded-xl p-3 sm:p-4 text-center border-2 overflow-hidden ${balance >= 10
+                ? 'border-green-500/50 bg-gradient-to-r from-green-900/30 to-black/40'
+                : balance > 0
+                  ? 'border-yellow-500/50 bg-gradient-to-r from-yellow-900/30 to-black/40'
+                  : 'border-red-500/50 bg-gradient-to-r from-red-900/30 to-black/40'
+                }`}>
+                <div className="absolute inset-0 opacity-20"
+                  style={{
+                    background: `
                        linear-gradient(45deg, transparent 30%, rgba(179, 54, 251, 0.1) 50%, transparent 70%),
                        linear-gradient(-45deg, transparent 30%, rgba(179, 54, 251, 0.1) 50%, transparent 70%)
                      `,
-                     backgroundSize: "30px 30px, 30px 30px"
-                   }}></div>
-              <div className="relative z-10">
-                <p className="text-white font-semibold text-xs sm:text-sm md:text-base mb-2 flex items-center justify-center gap-1">
-                  💰 Balance: {balance.toFixed(2)} 
-                  <TokenLogo />
-                  $IVA tokens
-                </p>
-                {balance >= 10 ? (
-                  <p className="text-green-400 text-xs sm:text-sm">
-                    ✅ Full access to chat with Iva
+                    backgroundSize: "30px 30px, 30px 30px"
+                  }}></div>
+                <div className="relative z-10">
+                  <p className="text-white font-semibold text-xs sm:text-sm md:text-base mb-2 flex items-center justify-center gap-1">
+                    💰 Balance: {balance.toFixed(2)}
+                    <TokenLogo />
+                    $IVA tokens
                   </p>
-                ) : balance > 0 ? (
-                  <p className="text-yellow-400 text-xs sm:text-sm">
-                    ⚠️ Limited access - Iva might mock you
-                  </p>
-                ) : (
-                  <p className="text-red-400 text-xs sm:text-sm">
-                    ❌ No tokens - Iva won't talk to you
-                  </p>
-                )}
+                  {balance >= 10 ? (
+                    <p className="text-green-400 text-xs sm:text-sm">
+                      ✅ Full access to chat with Iva
+                    </p>
+                  ) : balance > 0 ? (
+                    <p className="text-yellow-400 text-xs sm:text-sm">
+                      ⚠️ Limited access - Iva might mock you
+                    </p>
+                  ) : (
+                    <p className="text-red-400 text-xs sm:text-sm">
+                      ❌ No tokens - Iva won't talk to you
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
+            )} */}
+          </div>
+
+          {/* Wallet Selector Modal */}
+          {showWalletSelector && (
+            <WalletSelector
+              onClose={() => setShowWalletSelector(false)}
+              onConnected={handleWalletConnected}
+            />
           )}
-        </div>
-      </div>
 
-      {/* Wallet Selector Modal */}
-      {showWalletSelector && (
-        <WalletSelector 
-          onClose={() => setShowWalletSelector(false)}
-          onConnected={handleWalletConnected}
-        />
-      )}
-
-      <style jsx>{`
+          {/* <style jsx>{`
         @keyframes pulse {
           0%, 100% { opacity: 0.3; }
           50% { opacity: 0.8; }
         }
-      `}</style>
+      `}</style> */}
+        </div>
+      </div>
     </div>
   ) : null;
 };

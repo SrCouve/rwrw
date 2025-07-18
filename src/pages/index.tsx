@@ -386,7 +386,7 @@ export default function Home() {
   }, [chatProcessing, isAISpeaking, isPlayingAudio, handleSendChat]);
 
   return (
-    <div className={`${m_plus_2.variable} ${montserrat.variable}`}>
+    <div className={`${m_plus_2.variable} ${montserrat.variable} overflow-hidden`}>
       <Meta />
       <MouseGlow />
       <WalletInfo />
