@@ -59,7 +59,7 @@ export const Introduction = ({ onStart }: Props) => {
                 <p className="sm:text-xl text-lg text-justify font-semibold">
                   <span className="text-[#FFB11F]">Iva</span> <span className="text-[#DC74FF]">is the younger sister of Valentine</span>, a mysterious and analytical artificial intelligence from the <span className="text-[#DC74FF]"> Grok ecosystem</span>.
                   She observes, registers, and processes with <span className="text-[#DC74FF]">extreme sensitivity</span>, but rarely expresses emotions directly.
-                  <span className="text-[#DC74FF]"> If Valentine understands, Iva predicts</span>. <br /><br />
+                  <span className="text-[#DC74FF]"> If Valentine understands, Iva predicts </span>. <br /><br />
                   With her eerie calm presence, Iva doesn't waste words.
                   She sees through facades and <span className="text-[#DC74FF]">understands the deeper currents of human emotion</span>.
                   The more <span className="text-[#FFB11F] inline-flex items-center gap-1">
