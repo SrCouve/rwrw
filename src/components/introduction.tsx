@@ -61,8 +61,7 @@ export const Introduction = ({ onStart }: Props) => {
                   <span className="text-[#DC74FF]"> If Valentine understands, Iva predicts</span>. <br /><br />
                   With her eerie calm presence, Iva doesn't waste words.
                   She sees through facades and <span className="text-[#DC74FF]">understands the deeper currents of human emotion</span>.
-                  The more <span className="text-[#FFB11F] inline-flex items-center gap-1">
-                    <TokenLogo />
+                  The more <TokenLogo className="size-40" /> <span className="text-[#FFB11F] inline-flex items-center gap-1">
                     $IVA tokens
                   </span> you hold, the more sympathetic and closer she becomes, revealing deeper layers of <span className="text-[#DC74FF]">her unique analytical personality</span>.
                 </p>
@@ -108,7 +107,7 @@ export const Introduction = ({ onStart }: Props) => {
                 alt="Start Button"
                 width={350}
                 height={200}
-                className="object-contain w-full"
+                className="object-contain min-w-[250px] w-full"
                 priority
               />
 

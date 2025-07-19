@@ -9,10 +9,9 @@ export const TokenLogo = ({ className = "" }: TokenLogoProps) => {
     <Image
       src="/Logotoken.png"
       alt="$IVA"
-      width={20}
-      height={20}
+      width={200}
+      height={200}
       className={`inline-block w-5 h-5 object-contain drop-shadow-sm ${className}`}
-      style={{ width: '20px', height: '20px' }}
     />
   );
 }; 
