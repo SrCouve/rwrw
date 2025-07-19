@@ -34,7 +34,17 @@ export const Introduction = ({ onStart }: Props) => {
   };
 
   return opened ? (
-    <div className="flex w-full h-full min-h-screen items-center justify-center text-white z-40 relative">
+    <div className="flex w-full h-full min-h-screen items-center justify-center text-white z-40 relative bg-[url('/iva-bg1.png')] bg-center bg-cover">
+      <Image
+        src={buildUrl('/iva-char.png')}
+        alt="IVA"
+        width={500}
+        height={500}
+        className="absolute bottom-0 right-0 object-contain"
+        priority
+      />
+
+
       <div className="flex relative flex-col max-w-4xl min-w-[530px] max-h-[80vh] !aspect-[9/9] z-50 items-center justify-center bg-[url('/frame.png')] bg-center bg-contain bg-no-repeat">
         {/* IVA Logo - metade dentro, metade fora do modal */}
         <Image
